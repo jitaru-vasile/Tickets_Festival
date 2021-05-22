@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel = "stylesheet" href="LogInStyle.css" , type="text/css">
+    <title>Sign in</title>
+</head>
+<body>
+<div class="login-page">
+    <div class="form">
+        <form class="login-form" action = "#" th:action="@{/signIn}"  method="post" >
+            <H3>Sign in</H3>
+            <input th:field = "*{userDto.firstName}"  type="text" placeholder="first name"/>
+            <input th:field = "*{userDto.lastName}" type="text" placeholder="last name"/>
+            <input th:field = "*{userDto.email}" type="email" placeholder="email"/>
+            <input th:field = "*{userDto.password}" type="password" placeholder="password"/>
+            <input th:name = "rePass" type="password" placeholder=" re-type password"/>
+            <input th:field = "*{userDto.dateOfBirth}"type="date" placeholder="date of birth"/>
+            <input th:field = "*{addressDto.houseHoldNumber}" type="text" placeholder="household number"/>
+            <input th:field = "*{addressDto.street}"  type="text" placeholder="street"/>
+            <input th:field = "*{addressDto.city}" type="text" placeholder="city"/>
+            <input th:field = "*{addressDto.apartment}"  type="text" placeholder="*apartment"/>
+            <input th:field = "*{addressDto.building}"   type="text" placeholder="*building"/>
+            <input th:field = "*{addressDto.floor}"   type="text" placeholder="*floor"/>
+            <button name="action" type="submit" value="signIn">sign in</button>
+            <p class="message">Already have an account? <a href="http://localhost:7799/app/logIn">Log in</a></p>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

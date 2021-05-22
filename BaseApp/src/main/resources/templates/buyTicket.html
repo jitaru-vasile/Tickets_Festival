@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<meta http-equiv="X-UA-Compatible" content="IE=edge">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title>Buy Ticket</title>
+		<style>	
+			.ticket {
+				display: flex;
+				flex-direction: column;
+				justify-content: space-evenly;
+				width: 300px;
+				height: 450px;
+				border: 2px solid #ffffff;
+				margin: 30px;
+				border-radius: 5px;
+				background: #ffffff;
+				box-shadow: 0 5px 15px -9px black;
+				padding: 0 15px;
+			}
+
+			.div-ticket{
+				display: flex;
+				flex-direction: row ;
+			}
+			.emph-text {
+				font-weight: bold;
+			}
+
+			.custom-button {
+				margin: auto;
+				height: 35px;
+				width: 85px;
+				background: #a100c2;
+				color: white;
+				border: 2px solid rgba(0,0,0,.12);
+				border-radius: 5px;
+				box-shadow:
+					0 0 0 0 rgb(0 0 0 / 20%),
+					0 0 0 0 rgb(0 0 0 / 14%),
+					0 0 0 0 rgb(0 0 0 / 12%);
+			}
+			
+			.custom-button:hover {
+				background: #00b8b5;
+			}
+			
+			table {
+				font-family: arial, sans-serif;
+				border-collapse: collapse;
+				width: 100%;
+			}
+
+			td, th {
+				border: 1px solid #dddddd;
+				text-align: left;
+				padding: 8px;
+			}
+			
+			th:last-child {
+				width: 80px;
+			}
+
+			tr:nth-child(even) {
+				background-color: #e5daf2;
+			}
+
+			body {
+				background: #76b852; /* fallback for old browsers */
+				background: -webkit-linear-gradient(right, #00b8b5, #a100c2);
+				background: -moz-linear-gradient(right, #00b8b5, #a100c2);
+				background: -o-linear-gradient(right, #00b8b5, #a100c2);
+				background: linear-gradient(to left, #00b8b5, #a100c2);
+				font-family: "Roboto", sans-serif;
+				-webkit-font-smoothing: antialiased;
+				-moz-osx-font-smoothing: grayscale;
+			}
+			
+			.action-button {
+				background-size: cover;
+				height: 25px;
+				width: 25px;
+				background-color: transparent;
+				border: none;
+			}
+			
+			.delete-button {
+				background-image: url(delete.png);
+			}
+			
+			.edit-button {
+				background-image: url(edit.png);
+				margin: 0 10px;
+			}
+			
+			button:hover {
+				cursor: pointer;
+			}
+			
+			#form-wrapper {
+				margin-top: 50px;
+				border-radius: 5px;
+				background-color: #e5daf2;
+				padding: 20px;
+				width: 450px;
+			}
+			
+			input[type=text] {
+				width: 100%;
+				padding: 12px 20px;
+				margin: 8px 0;
+				display: inline-block;
+				border: 1px solid #ccc;
+				border-radius: 4px;
+				box-sizing: border-box;
+			}
+			
+			input[type=submit] {
+				margin-left: 190px;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="div-ticket">
+			<th:block  th:each="ticket: ${tickets}">
+			<div class="ticket">
+				<form action = "#" th:action="@{/buyTicket}"  method="post" >
+				<p>Nume bilet: <span  class="emph-text" th:text="*{ticket.name}" th:id="id"></span></p>
+				<p>Data start: <span  class="emph-text" th:text="*{ticket.startDate}" th:id="id"></span></p>
+				<p>Data incheiere: <span  class="emph-text" th:text="*{ticket.endDate}" th:id="id"></span></p>
+				<p>price: <span class="emph-text" th:text="*{ticket.price}" th:id="id"></span>></p>
+				</form>
+			</div>
+			</th:block>
+
+			<form action = "#" th:action="@{/buyTicket}"  method="post" >
+				<hr>
+				<hr>
+				<select name="ticketSelected">
+					<option th:each="ticket:${tickets}" th:value="${ticket.getName()}" th:text="${ticket.getName()}"></option>
+				</select>>
+				<button name="action" type="submit" value="buy">BUY</button>
+			</form>
+		</div>
+	</body>
+</html>

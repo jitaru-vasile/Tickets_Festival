@@ -1,0 +1,3 @@
+ticket name: Ticket Cool
+ticket price:10000
+owner:Jitaru Vasile

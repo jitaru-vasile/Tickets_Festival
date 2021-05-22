@@ -1,0 +1,3 @@
+ticket name: Ticket smeker
+ticket price:500
+owner:Andrei Popovici

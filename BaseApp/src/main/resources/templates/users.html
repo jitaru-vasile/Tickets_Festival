@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<html>
+
+<head>
+    <title>Page Title</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th:last-child {
+            width: 80px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        tr:nth-child(odd) {
+            background-color: #e5daf2;
+        }
+
+        .action-button {
+            background-size: cover;
+            height: 25px;
+            width: 25px;
+            background-color: transparent;
+            border: none;
+        }
+
+        .delete-button {
+            background-image: url(delete.png);
+        }
+
+        .edit-button {
+            background-image: url(edit.png);
+            margin: 0 10px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        #form-wrapper {
+            margin-top: 50px;
+            border-radius: 5px;
+            background-color: #e5daf2;
+            padding: 20px;
+            width: 450px;
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            margin-left: 190px;
+        }
+
+        body {
+            background: #76b852; /* fallback for old browsers */
+            background: -webkit-linear-gradient(right, #00b8b5, #a100c2);
+            background: -moz-linear-gradient(right, #00b8b5, #a100c2);
+            background: -o-linear-gradient(right, #00b8b5, #a100c2);
+            background: linear-gradient(to left, #00b8b5, #a100c2);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+
+<body>
+
+<table>
+    <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Address</th>
+        <th></th>
+    </tr>
+
+    <th:block th:each="user: ${userList}">
+        <tr>
+            <td th:text="${user.firstName + user.lastName}">
+            <td th:text="${user.email}">
+            <td th:text="${user.addressDto.getPrettyAddress()}">
+            <td>
+                <button type="button" class="action-button edit-button"></button>
+                <button type="button" class="action-button delete-button"></button>
+            </td>
+        </tr>>
+    </th:block>
+</table>
+
+</body>
+
+</html>

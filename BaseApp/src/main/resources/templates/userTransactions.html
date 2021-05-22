@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<html>
+
+<head>
+    <title>My transactions</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .form-wrapper {
+            margin-top: 50px;
+            border-radius: 5px;
+            background-color: #e5daf2;
+            padding: 20px;
+            width: 450px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th:last-child {
+            width: 80px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        tr:nth-child(odd) {
+            background-color: #e5daf2;
+        }
+
+        .action-button {
+            background-size: cover;
+            height: 25px;
+            width: 25px;
+            background-color: transparent;
+            border: none;
+        }
+
+        .ticket {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly ;
+            margin: 10px;
+
+        }
+        .delete-button {
+            background-image: url(delete.png);
+        }
+
+        .edit-button {
+            background-image: url(edit.png);
+            margin: 0 10px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select{
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            margin-left: 190px;
+        }
+
+        body {
+            background: #76b852; /* fallback for old browsers */
+            background: -webkit-linear-gradient(right, #00b8b5, #a100c2);
+            background: -moz-linear-gradient(right, #00b8b5, #a100c2);
+            background: -o-linear-gradient(right, #00b8b5, #a100c2);
+            background: linear-gradient(to left, #00b8b5, #a100c2);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+
+<body>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Ticket</th>
+        <th>Quantity</th>
+        <th></th>
+    </tr>
+
+    <th:block th:each="transaction: ${transactionList}">
+        <tr>
+            <td th:text="${transactionList.indexOf(transaction)}">
+            <td th:text="${transaction.getUserProfileT().firstName + transaction.getUserProfileT().lastName}">
+            <td th:text="${transaction.getFestivalTicket().name}">
+            <td th:text="${transaction.getNoOfTickets()}">
+            <td>
+                <button type="button" class="action-button edit-button"></button>
+                <button type="button" class="action-button delete-button"></button>
+            </td>
+        </tr>
+    </th:block>
+</table>
+
+<div class="ticket">
+    <div class="form-wrapper">
+        <form  action = "#" th:action="@{/userTransactions/update}"  method="post">
+            <h2>Update </h2>
+            <label for="quantity">Quantity</label>
+            <input type="number" th:name="quantity" id="quantity" name="quantity">
+            <label for="tickets">Pick ticket</label>
+            <select id="tickets" name="ticketSelected">
+                <option th:each="ticket:${tickets}" th:value="${ticket.getName()}" th:text="${ticket.getName()}"></option>
+            </select>
+            <label for="transactions">Pick transaction id</label>
+            <select id="transactions" name="transactionSelectedUpdate">
+                <option th:each="transaction:${transactionList}" th:value="${transactionList.indexOf(transaction)}" th:text="${transactionList.indexOf(transaction)}"></option>
+            </select>
+            <button type="submit" name="action" class="custom-button" value="update">Update</button>
+        </form>
+    </div>
+
+    <div class="form-wrapper">
+        <form action = "#" th:action="@{/userTransactions/delete}" method="post" >
+            <h2>Delete </h2>
+            <label for="transactionSelected">Pick the id of the transaction you wish to delete </label>
+            <select id="transactionSelected" name="transactionSelected">
+                <option th:each="transaction:${transactionList}" th:value="${transactionList.indexOf(transaction)}" th:text="${transactionList.indexOf(transaction)}"></option>
+            </select>
+            <button name="action" type="submit" class="custom-button" value="delete">Delete</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>
