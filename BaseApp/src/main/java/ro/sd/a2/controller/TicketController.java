@@ -3,16 +3,16 @@ package ro.sd.a2.controller;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
 import ro.sd.a2.DTO.PayloadDTO;
 import ro.sd.a2.DTO.TicketDTO;
-import ro.sd.a2.DTO.TransactionDTO;
 import ro.sd.a2.DTO.UserDTO;
 import ro.sd.a2.Exception.NullFieldException;
 import ro.sd.a2.Strategy.Context;
@@ -47,41 +47,43 @@ public class TicketController {
     @Autowired
     private RestTemplate restTemplate;
 
-    private String loggedInUserId;
     private UserDTO loggedInUser;
 
-    @GetMapping("/buyTicket")
-    public ModelAndView buyTicketForm(@RequestParam(name="userId", required = true) String userId) {
+    @GetMapping("user/buyTicket")
+    public ModelAndView buyTicketForm() {
+        String currentUserName = "";
 
-       loggedInUserId = userId;
-       loggedInUser = userService.getUserByID(loggedInUserId);
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        if (!(authentication instanceof AnonymousAuthenticationToken)) {
+            currentUserName = authentication.getName();
+        }
+
+       loggedInUser = userService.getUserByEmail(currentUserName);
        ticketDTOList = ticketService.getAllTickets();
        ModelAndView modelAndView = new ModelAndView();
        modelAndView.addObject("tickets",ticketDTOList);
-       modelAndView.setViewName("buyTicket");
+       modelAndView.setViewName("user/buyTicket");
 
        return modelAndView;
     }
 
-    @GetMapping("/addTicket")
-    public ModelAndView addTicketForm(@RequestParam(name="userId", required = true) String userId) {
-        loggedInUserId = userId;
+    @GetMapping("admin/addTicket")
+    public ModelAndView addTicketForm() {
+
         ModelAndView modelAndView = new ModelAndView();
         TicketDTO ticketDTO = new TicketDTO();
         modelAndView.addObject("ticketDto",ticketDTO);
-        modelAndView.setViewName("addTicket");
+        modelAndView.setViewName("admin/addTicket");
         return modelAndView;
     }
 
-    @GetMapping("/ticketDU")
-    public ModelAndView updateDeleteTicketForm(@RequestParam(name="userId", required = true) String userId) {
+    @GetMapping("admin/ticketDU")
+    public ModelAndView updateDeleteTicketForm() {
 
         int price = 0;
         LocalDate startDate = LocalDate.now();
         LocalDate stopDate = LocalDate.now();
         String name = "";
-        loggedInUserId = userId;
-        loggedInUser = userService.getUserByID(loggedInUserId);
         ticketDTOList = ticketService.getAllTickets();
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.addObject("tickets",ticketDTOList);
@@ -89,26 +91,26 @@ public class TicketController {
         modelAndView.addObject("price",price);
         modelAndView.addObject("startDate",startDate);
         modelAndView.addObject("stopDate",stopDate);
-        modelAndView.setViewName("ticketDU");
+        modelAndView.setViewName("admin/ticketDU");
 
         return modelAndView;
     }
 
-    @PostMapping(value = "/addTicket", params = "action=addTicket")
+    @PostMapping(value = "admin/addTicket", params = "action=addTicket")
     public RedirectView addTicketAction(@ModelAttribute("ticketDto") TicketDTO ticketDTO){
         RedirectView redirectView = new RedirectView();
         try {
             ticketDTO.setId(UUID.randomUUID().toString());
             ticketService.insert(ticketDTO);
-            redirectView.setUrl("http://localhost:7799/app/adminMenu?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/admin/index");
         }catch (Exception e){
             log.error(e.getMessage());
-            redirectView.setUrl("http://localhost:7799/app/addTicket?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/admin/addTicket");
         }
         return redirectView;
     }
 
-    @PostMapping(value = "/buyTicket")
+    @PostMapping(value = "user/buyTicket")
     public RedirectView buyTicket(@Valid String ticketSelected){
         String ticketId = "";
         RedirectView redirectView = new RedirectView();
@@ -126,36 +128,36 @@ public class TicketController {
             context.executeStrategy(ticketDTO,loggedInUser);
             Context context1 = new Context(new GenerateTicketText());
             context1.executeStrategy(ticketDTO,loggedInUser);
-            PayloadDTO payloadDTO = PayloadDTO.builder().price(ticketDTO.getPrice())
+           /* PayloadDTO payloadDTO = PayloadDTO.builder().price(ticketDTO.getPrice())
                     .ticketName(ticketDTO.getName())
                     .ticketPath(loggedInUser.getFirstName()+loggedInUser.getLastName()+"ticket")
                     .userEmail(loggedInUser.getEmail())
                     .userFullName(loggedInUser.getFirstName() + " " + loggedInUser.getLastName()).build();
-            rabbitSender.send(payloadDTO);
-            redirectView.setUrl("http://localhost:7799/app/userMenu?userId="+loggedInUserId);
+            rabbitSender.send(payloadDTO);*/
+            redirectView.setUrl("http://localhost:7799/app/user/index");
         }catch (Exception e){
             e.printStackTrace();
             log.error(e.getMessage());
-            redirectView.setUrl("http://localhost:7799/app/buyTicket?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/admin/buyTicket");
         }
         return redirectView;
     }
 
-    @PostMapping(value = "/ticketDU/delete")
+    @PostMapping(value = "admin/ticketDU/delete")
     public RedirectView delete(@Valid int ticketSelected){
         RedirectView redirectView = new RedirectView();
         try {
             String ticketToRemoveID = ticketDTOList.get(ticketSelected).getId();
             ticketService.delete(ticketToRemoveID);
-            redirectView.setUrl("http://localhost:7799/app/adminMenu?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/admin/index");
         }catch (Exception e){
             log.error(e.getMessage());
-            redirectView.setUrl("http://localhost:7799/app/ticketDU?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/ticketDU");
         }
         return redirectView;
     }
 
-    @PostMapping(value = "/ticketDU/update")
+    @PostMapping(value = "admin/ticketDU/update")
     public RedirectView update(@Valid int ticketSelected,
                                @RequestParam(value = "price",required = false) int price,
                                @RequestParam(value = "name",required = false) String name,
@@ -174,14 +176,14 @@ public class TicketController {
                     .endDate(stopDate)
                     .startDate(startDate).build();
             ticketService.update(ticketDTO);
-            redirectView.setUrl("http://localhost:7799/app/adminMenu?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/admin/index");
         }catch (NullFieldException e){
             log.error(e.getMessage());
-            redirectView.setUrl("http://localhost:7799/app/ticketDU?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/admin/ticketDU");
         }
         catch (Exception e){
             log.error(e.getMessage());
-            redirectView.setUrl("http://localhost:7799/app/ticketDU?userId="+loggedInUserId);
+            redirectView.setUrl("http://localhost:7799/app/ticketDU");
         }
         return redirectView;
     }

@@ -3,11 +3,11 @@ package ro.sd.a2.service;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import ro.sd.a2.DTO.UserDTO;
 import ro.sd.a2.Exception.NullFieldException;
 import ro.sd.a2.Mappers.UserMapper;
-import ro.sd.a2.controller.FirstController;
 import ro.sd.a2.entity.UserProfile;
 import ro.sd.a2.repository.UserRepository;
 
@@ -17,17 +17,16 @@ import java.util.List;
 @Service
 public class UserService {
 
+    private PasswordEncoder passwordEncoder;
+
     @Autowired
     private final UserRepository userRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(FirstController.class);
+    private static final Logger log = LoggerFactory.getLogger(UserService.class);
 
-    public UserService(UserRepository userRepository) {
+    public UserService(PasswordEncoder passwordEncoder, UserRepository userRepository) {
+        this.passwordEncoder = passwordEncoder;
         this.userRepository = userRepository;
-    }
-
-    public UserDTO logIn(UserDTO user){
-        return UserMapper.mapUserToDTO(userRepository.getUserProfileByEmailAndPassword(user.getEmail(),user.getPassword()));
     }
 
     public List<UserDTO> getAllUsersAdmin() {
@@ -56,7 +55,11 @@ public class UserService {
         if(userDto.getDateOfBirth() ==  null){
             throw new NullFieldException("Field date is not completed!");
         }
-        userRepository.save(UserMapper.mapDTOToUser(userDto));
+        UserProfile userProfile = UserMapper.mapDTOToUser(userDto);
+        userProfile.setPassword(passwordEncoder.encode(userDto.getPassword()));
+        userProfile.setRoles("USER");
+        userProfile.setPermissions("user");
+        userRepository.save(userProfile);
         return true;
     }
 
@@ -89,5 +92,9 @@ public class UserService {
 
         userRepository.save(userProfile);
         return true;
+    }
+
+    public UserDTO getUserByEmail(String email) {
+        return UserMapper.mapUserToDTO(userRepository.findByEmail(email));
     }
 }

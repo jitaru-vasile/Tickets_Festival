@@ -108,22 +108,79 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+        body {
+            margin:0;
+            padding:0;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #a100c2;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 46px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: rgba(12, 12, 12, 0.45);
+        }
+
+        .active {
+            background-color: #00b8b5;
+        }
+
+        #content-container {
+            padding:20px;
+            margin-top:30px;
+            height: calc(100vh - 46px);
+            padding: 0;
+        }
+
     </style>
     <title>Menu</title>
 </head>
 <body>
-<div class="login-page">
-    <div class="form">
-        <form class="login-form" action = "#" th:action="@{/adminMenu}"  method="post" >
-            <H3>ADMIN</H3>
-            <button name="action" type="submit" value="transactions">See transactions</button>
-            <button name="action" type="submit" value="users">See users</button>
-            <button name="action" type="submit" value="tickets">Add tickets</button>
-            <button name="action" type="submit" value="ticketsDU">Tickets</button>
-            <button name="action" type="submit" value="logOut">Log out</button>
-        </form>
+<ul>
+    <li><a href="http://localhost:7799/app/index">Home</a></li>
+    <li><a href="http://localhost:7799/app/user/index">User</a></li>
+    <li><a class="active"href="http://localhost:7799/app/admin/index">Admin</a></li>
+</ul>
+
+<div id="content-container">
+    <div class="login-page">
+        <div class="form">
+            <form class="login-form" action = "#" th:action="@{/admin/index}"  method="post" >
+                <H3>ADMIN</H3>
+                <button name="action" type="submit" value="transactions">See transactions</button>
+                <button name="action" type="submit" value="users">See users</button>
+                <button name="action" type="submit" value="tickets">Add tickets</button>
+                <button name="action" type="submit" value="ticketsDU">Tickets</button>
+                <button name="action" type="submit" value="music">Music types</button>
+                <button name="action" type="submit" value="editSchedule">Edit schedule</button>
+                <button name="action" type="submit" value="stage">Stages</button>
+                <button name="action" type="submit" value="artists">Artists</button>
+            </form>
+            <form class="login-form" form-method="post" th:action="@{/logout}">
+                <button type="submit" >Logout</button>
+            </form>
+        </div>
     </div>
 </div>
-
 </body>
 </html>

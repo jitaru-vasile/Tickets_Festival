@@ -8,7 +8,8 @@ public class StageMapper {
         return Stage.builder().id(stage.getId())
                 .location(stage.getLocation())
                 .name(stage.getName())
-                .performance(PerformanceMapper.mapDTOToPerformance(stage.getPerformance())).build();
+                //.performanceSchedule(PerformanceMapper.mapDTOToPerformance(stage.getPerformance()))
+                .build();
 
     }
 
@@ -16,7 +17,8 @@ public class StageMapper {
         return StageDTO.builder().id(stage.getId())
                 .location(stage.getLocation())
                 .name(stage.getName())
-                .performance(PerformanceMapper.mapPerformanceTDTo(stage.getPerformance())).build();
+               // .performance(PerformanceMapper.mapPerformanceTDTo(stage.getPerformanceSchedule()))
+                .build();
 
     }
 }

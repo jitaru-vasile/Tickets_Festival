@@ -114,7 +114,7 @@
 <body>
 <div class="login-page">
     <div class="form">
-        <form class="login-form" action = "#" th:action="@{/addTicket}"  method="post" >
+        <form class="login-form" action = "#" th:action="@{/admin/addTicket}"  method="post" >
             <H3>ADD TICKET</H3>
             <input th:field = "*{ticketDto.name}"  type="text" placeholder="NAME"/>
             <input th:field = "*{ticketDto.type}"  type="text" placeholder="TYPE"/>

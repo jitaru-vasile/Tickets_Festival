@@ -129,7 +129,7 @@
 		<div class="div-ticket">
 			<th:block  th:each="ticket: ${tickets}">
 			<div class="ticket">
-				<form action = "#" th:action="@{/buyTicket}"  method="post" >
+				<form action = "#" th:action="@{/user/buyTicket}"  method="post" >
 				<p>Nume bilet: <span  class="emph-text" th:text="*{ticket.name}" th:id="id"></span></p>
 				<p>Data start: <span  class="emph-text" th:text="*{ticket.startDate}" th:id="id"></span></p>
 				<p>Data incheiere: <span  class="emph-text" th:text="*{ticket.endDate}" th:id="id"></span></p>
@@ -138,7 +138,7 @@
 			</div>
 			</th:block>
 
-			<form action = "#" th:action="@{/buyTicket}"  method="post" >
+			<form action = "#" th:action="@{/user/buyTicket}"  method="post" >
 				<hr>
 				<hr>
 				<select name="ticketSelected">

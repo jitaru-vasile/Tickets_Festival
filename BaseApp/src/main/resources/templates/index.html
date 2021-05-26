@@ -17,10 +17,10 @@
             position: relative;
             z-index: 1;
             background: #FFFFFF;
-            max-width: 400px;
+            max-width: 360px;
             margin: 0 auto 100px;
             padding: 45px;
-            text-align: left;
+            text-align: center;
             box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.2), 0 5px 5px 0 rgba(0, 0, 0, 0.24);
         }
         .form input {
@@ -57,13 +57,6 @@
             margin: 15px 0 0;
             color: #b3b3b3;
             font-size: 12px;
-        }
-        .form label{
-            text-align: left;
-            font-weight: bold;
-        }
-        .form h3{
-            text-align: center;
         }
         .form .message a {
             color: #00b8b5;
@@ -105,11 +98,6 @@
         .container .info span .fa {
             color: #EF3B3A;
         }
-
-        label{
-
-        }
-
         body {
             background: #76b852; /* fallback for old browsers */
             background: -webkit-linear-gradient(right, #00b8b5, #a100c2);
@@ -120,65 +108,72 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
         }
+
+        body {
+            margin:0;
+            padding:0;
+        }
+
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #a100c2;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 46px;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover:not(.active) {
+            background-color: rgba(12, 12, 12, 0.45);
+        }
+
+        .active {
+            background-color: #00b8b5;
+        }
+
+        #content-container {
+            padding:20px;
+            margin-top:30px;
+            height: calc(100vh - 46px);
+            padding: 0;
+        }
+
     </style>
-    <title>Edit profile</title>
 </head>
 <body>
-<div class="login-page">
-    <div class="form">
-        <form class="login-form" action = "#" th:action="@{/editProfile}"  method="post" >
-            <H3>Edit profile</H3>
-            <label class = "text-left" for="firstName">First name</label>
-            <input th:field = "*{userDto.firstName}" th:value="*{userDto.firstName}" id = "firstName" type="text" />
 
-            <label for="lastName">Last name</label>
+<ul>
+    <li><a class="active" href="http://localhost:7799/app/index">Home</a></li>
+    <li><a href="http://localhost:7799/app/user/index">User</a></li>
+    <li><a href="http://localhost:7799/app/admin/index">Admin</a></li>
+</ul>
 
-            <input th:field="*{userDto.lastName}" th:value="*{userDto.lastName}" id = "lastName" type="text" />
+<div id="content-container">
+    <div class="login-page">
+        <div class="form">
+            <form class="login-form" action = "#" th:action="@{index}"  method="post" >
+                <H3>HOME</H3>
+                <button name="action" type="submit" value="schedule">See Schedule</button>
+                <button name="action" type="submit" value="artists">Artists</button>
+                <button name="action" type="submit" value="signIn">Sign in</button>
+            </form>
 
-            <label for="email">Email</label>
-
-            <input th:field="*{userDto.email}" th:value="*{userDto.email}" id = "email" type="email" readonly = readonly />
-
-            <label for="password">Password</label>
-
-            <input th:field="*{userDto.password}" type="password" id = "password" placeholder="password"/>
-
-            <label for="re_password">Retype password</label>
-
-            <input th:field="*{password}" type="password" id = "re_password" placeholder=" re-type password"/>
-
-            <label for="date">Date of birth</label>
-
-            <input th:field="*{userDto.dateOfBirth}" th:value="*{userDto.dateOfBirth}" id = "date" type="date" />
-
-            <label for="houseHoldNumber">Household number</label>
-
-            <input th:field="*{addressDto.houseHoldNumber}" th:value="*{addressDto.houseHoldNumber}" id = "houseHoldNumber" type="text" />
-
-            <label for="city">City</label>
-
-            <input th:field="*{addressDto.city}" th:value="*{addressDto.city}" id = "city" type="text"/>
-
-            <label for="street">Street</label>
-
-            <input th:field="*{addressDto.street}" th:value="*{addressDto.street}" id = "street" type="text" />
-
-            <label for="apartment">Apartment</label>
-
-            <input th:field="*{addressDto.apartment}" th:value="*{addressDto.apartment}" id = "apartment" type="text"/>
-
-            <label for="building">Building</label>
-
-            <input th:field="*{addressDto.building}" th:value="*{addressDto.building}"   id = "building" type="text" />
-
-            <label for="floor">Floor</label>
-
-            <input th:field="*{addressDto.floor}" th:value="*{addressDto.floor}"  id = "floor" type="text" />
-
-            <button name="action" type="submit" value="update">update profile</button>
-            <button name="action" type="submit" value="cancel">cancel</button>
-
-        </form>
+        </div>
     </div>
 </div>
 

@@ -23,7 +23,7 @@ public class Artist {
     private String name;
 
     @OneToMany(mappedBy = "artist")
-    private List<Performance> performanceList;
+    private List<PerformanceSchedule> performanceScheduleList;
 
     @ManyToOne
     @JoinColumn(name = "musicTypes_id")

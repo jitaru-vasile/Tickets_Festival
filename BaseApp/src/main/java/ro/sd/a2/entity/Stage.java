@@ -24,5 +24,5 @@ public class Stage {
     private String location;
 
     @OneToOne(mappedBy = "stage")
-    private Performance performance;
+    private PerformanceSchedule performanceSchedule;
 }

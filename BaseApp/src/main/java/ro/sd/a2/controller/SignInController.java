@@ -22,7 +22,7 @@ import java.util.UUID;
 
 @Controller
 public class SignInController {
-    private static final Logger log = LoggerFactory.getLogger(FirstController.class);
+    private static final Logger log = LoggerFactory.getLogger(SignInController.class);
 
     @Autowired
     private UserService userService;
@@ -66,7 +66,7 @@ public class SignInController {
     public RedirectView signIn(@ModelAttribute("userDto") UserDTO userDTO, @ModelAttribute("addressDto") AddressDto addressDto){
         RedirectView redirectView = new RedirectView();
         try{
-            restTemplate.postForObject("http://localhost:7798/email", userDTO, UserDTO.class);
+        //restTemplate.postForObject("http://localhost:7798/email", userDTO, UserDTO.class);
         userDTO.setId(UUID.randomUUID().toString());
         addressDto.setId(UUID.randomUUID().toString());
         userDTO.setAddressDto(addressDto);
@@ -76,6 +76,7 @@ public class SignInController {
         }
         catch (Exception e){
             log.error(e.getMessage());
+            e.printStackTrace();
             redirectView.setUrl("http://localhost:7799/app/signIn");
         }
         return redirectView;

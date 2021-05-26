@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import ro.sd.a2.DTO.AddressDto;
 import ro.sd.a2.Exception.NullFieldException;
 import ro.sd.a2.Mappers.AddressMapper;
-import ro.sd.a2.controller.FirstController;
 import ro.sd.a2.entity.Address;
 import ro.sd.a2.repository.AddressRepository;
 
@@ -16,7 +15,7 @@ public class AddressService {
     @Autowired
     public final AddressRepository addressRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(FirstController.class);
+    private static final Logger log = LoggerFactory.getLogger(AddressService.class);
 
     public AddressService(AddressRepository addressRepository) {
         this.addressRepository = addressRepository;

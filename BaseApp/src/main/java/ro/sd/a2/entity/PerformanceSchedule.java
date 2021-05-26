@@ -14,15 +14,15 @@ import java.time.LocalDateTime;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Performance {
+public class PerformanceSchedule {
     @Id
     private String id;
 
     @Column
-    private LocalDateTime start;
+    private LocalDateTime startPerf;
 
     @Column
-    private LocalDateTime end;
+    private LocalDateTime endPerf;
 
     @ManyToOne
     @JoinColumn(name = "artist_id")

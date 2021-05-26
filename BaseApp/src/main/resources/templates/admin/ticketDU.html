@@ -152,7 +152,7 @@
 
 <div class="ticket">
     <div class="form-wrapper">
-        <form  action = "#" th:action="@{/ticketDU/update}"  method="post">
+        <form  action = "#" th:action="@{/admin/ticketDU/update}"  method="post">
             <h2>Update </h2>
             <label for="tickets">Pick ticket</label>
             <select id="tickets" name="ticketSelected">
@@ -171,7 +171,7 @@
     </div>
 
     <div class="form-wrapper">
-        <form action = "#" th:action="@{/ticketDU/delete}" method="post" >
+        <form action = "#" th:action="@{/admin/ticketDU/delete}" method="post" >
             <h2>Delete </h2>
             <label for="ticketSelected">Pick the id of the ticket you wish to delete </label>
             <select id="ticketSelected" name="ticketSelected">

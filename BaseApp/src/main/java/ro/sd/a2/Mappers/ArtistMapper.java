@@ -10,8 +10,7 @@ public class ArtistMapper {
     public static ArtistDTO mapArtistToDTO(Artist artist){
         return ArtistDTO.builder().id(artist.getId())
                 .name(artist.getName())
-                .performanceList(artist.getPerformanceList())
-                .musicType(MusicMapper.mapMusicToDTO(artist.getMusicType())).build();
+               .build();
     }
 
     public static List<ArtistDTO> mapArtistToDTO(List<Artist> artists){
@@ -25,8 +24,7 @@ public class ArtistMapper {
     public static Artist mapDTOToArtist(ArtistDTO artist){
         return Artist.builder().id(artist.getId())
                 .name(artist.getName())
-                .performanceList(artist.getPerformanceList())
-                .musicType(MusicMapper.mapDTOToMusic(artist.getMusicType())).build();
+               .build();
     }
 
     public static List<Artist> mapDTOToArtist(List<ArtistDTO> artists){

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import ro.sd.a2.DTO.TicketDTO;
 import ro.sd.a2.Exception.NullFieldException;
 import ro.sd.a2.Mappers.TicketMapper;
-import ro.sd.a2.controller.FirstController;
 import ro.sd.a2.entity.FestivalTicket;
 import ro.sd.a2.repository.TicketRepository;
 
@@ -20,7 +19,7 @@ public class TicketService {
     @Autowired
     private final TicketRepository ticketRepository;
 
-    private static final Logger log = LoggerFactory.getLogger(FirstController.class);
+    private static final Logger log = LoggerFactory.getLogger(TicketService.class);
 
     public TicketService(TicketRepository ticketRepository){
         this.ticketRepository = ticketRepository;

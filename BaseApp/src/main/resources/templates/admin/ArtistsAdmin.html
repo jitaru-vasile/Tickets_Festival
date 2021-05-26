@@ -4,7 +4,7 @@
 <html>
 
 <head>
-    <title>My transactions</title>
+    <title>Tickets</title>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -77,6 +77,24 @@
             border-radius: 4px;
             box-sizing: border-box;
         }
+        input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=date] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
 
         select{
             width: 100%;
@@ -110,17 +128,14 @@
     <tr>
         <th>Id</th>
         <th>Name</th>
-        <th>Ticket</th>
-        <th>Quantity</th>
         <th></th>
     </tr>
 
-    <th:block th:each="transaction: ${transactionList}">
+    <th:block th:each="artist:${artists}">
         <tr>
-            <td th:text="${transactionList.indexOf(transaction)}">
-            <td th:text="${transaction.getUserProfileT().firstName + transaction.getUserProfileT().lastName}">
-            <td th:text="${transaction.getFestivalTicket().name}">
-            <td th:text="${transaction.getNoOfTickets()}">
+            <td th:text="${artists.indexOf(artist)}">
+            <td th:text="${artist.name}">
+
             <td>
                 <button type="button" class="action-button edit-button"></button>
                 <button type="button" class="action-button delete-button"></button>
@@ -131,30 +146,38 @@
 
 <div class="ticket">
     <div class="form-wrapper">
-        <form  action = "#" th:action="@{/userTransactions/update}"  method="post">
-            <h2>Update </h2>
-            <label for="quantity">Quantity</label>
-            <input type="number" th:name="quantity" id="quantity" name="quantity">
-            <label for="tickets">Pick ticket</label>
-            <select id="tickets" name="ticketSelected">
-                <option th:each="ticket:${tickets}" th:value="${ticket.getName()}" th:text="${ticket.getName()}"></option>
-            </select>
-            <label for="transactions">Pick transaction id</label>
-            <select id="transactions" name="transactionSelectedUpdate">
-                <option th:each="transaction:${transactionList}" th:value="${transactionList.indexOf(transaction)}" th:text="${transactionList.indexOf(transaction)}"></option>
-            </select>
-            <button type="submit" name="action" class="custom-button" value="update">Update</button>
+        <form  action = "#" th:action="@{/admin/artists/add}"  method="post">
+            <h2>Add artist </h2>
+            <label for="name">Name</label>
+            <input type="text" th:field= "*{artistDTO.name}" id="name" >
+            <button type="submit" name="action" class="custom-button" value="add">Add</button>
         </form>
     </div>
 
     <div class="form-wrapper">
-        <form action = "#" th:action="@{/userTransactions/delete}" method="post" >
-            <h2>Delete </h2>
-            <label for="transactionSelected">Pick the id of the transaction you wish to delete </label>
-            <select id="transactionSelected" name="transactionSelected">
-                <option th:each="transaction:${transactionList}" th:value="${transactionList.indexOf(transaction)}" th:text="${transactionList.indexOf(transaction)}"></option>
+        <form  action = "#" th:action="@{/artists/check}"  method="post">
+            <h2>Select artist </h2>
+            <label for="idSelected">Pick the id of the artist you wish to see the bio generated. </label>
+            <select id="idSelected" name="idSelected">
+                <option th:each="artist:${artists}" th:value="${artists.indexOf(artist)}" th:text="${artists.indexOf(artist)}"></option>
             </select>
-            <button name="action" type="submit" class="custom-button" value="delete">Delete</button>
+            <button type="submit" name="action" class="custom-button" value="add">Check bio</button>
+        </form>
+    </div>
+
+    <div class="form-wrapper">
+        <form action = "#" th:action="@{/ticketDU/add2}" method="post" >
+            <h2>Add music types to artist </h2>
+            <label for="artistSelected">Pick the id of the artist you wish to add a music type </label>
+            <select id="artistSelected" name="artistSelected">
+                <option th:each="artist:${artists}" th:value="${artists.indexOf(artist)}" th:text="${artists.indexOf(artist)}"></option>
+            </select>
+
+            <label for="musicSelected">Pick the music type you wish to add to the selected artist </label>
+            <select id="musicSelected" name="musicSelected">
+                <option th:each="artist:${artists}" th:value="${artists.indexOf(artist)}" th:text="${artists.indexOf(artist)}"></option>
+            </select>
+            <button name="action" type="submit" class="custom-button" value="addMusic">Add</button>
         </form>
     </div>
 </div>

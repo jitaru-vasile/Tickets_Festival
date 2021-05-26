@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<html>
+
+<head>
+    <title>Schedule</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        .form-wrapper {
+            margin-top: 50px;
+            border-radius: 5px;
+            background-color: #e5daf2;
+            padding: 20px;
+            width: 450px;
+        }
+
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        th:last-child {
+            width: 80px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #ffffff;
+        }
+        tr:nth-child(odd) {
+            background-color: #e5daf2;
+        }
+
+        .action-button {
+            background-size: cover;
+            height: 25px;
+            width: 25px;
+            background-color: transparent;
+            border: none;
+        }
+
+        .ticket {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-evenly ;
+            margin: 10px;
+
+        }
+        .delete-button {
+            background-image: url(delete.png);
+        }
+
+        .edit-button {
+            background-image: url(edit.png);
+            margin: 0 10px;
+        }
+
+        button:hover {
+            cursor: pointer;
+        }
+
+        input[type=text] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=number] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+        input[type=date] {
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        select{
+            width: 100%;
+            padding: 12px 20px;
+            margin: 8px 0;
+            display: inline-block;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box;
+        }
+
+        input[type=submit] {
+            margin-left: 190px;
+        }
+
+        body {
+            background: #76b852; /* fallback for old browsers */
+            background: -webkit-linear-gradient(right, #00b8b5, #a100c2);
+            background: -moz-linear-gradient(right, #00b8b5, #a100c2);
+            background: -o-linear-gradient(right, #00b8b5, #a100c2);
+            background: linear-gradient(to left, #00b8b5, #a100c2);
+            font-family: "Roboto", sans-serif;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+    </style>
+</head>
+
+<body>
+<div>
+    <H4>Program</H4>
+<table>
+    <tr>
+        <th>Id</th>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Start date</th>
+        <th>End date</th>
+        <th></th>
+    </tr>
+
+    <th:block th:each="ticket: ${tickets}">
+        <tr>
+            <td th:text="${tickets.indexOf(ticket)}">
+            <td th:text="${ticket.name}">
+            <td th:text="${ticket.price}">
+            <td th:text="${ticket.startDate}">
+            <td th:text="${ticket.endDate}">
+
+            <td>
+                <button type="button" class="action-button edit-button"></button>
+                <button type="button" class="action-button delete-button"></button>
+            </td>
+        </tr>
+    </th:block>
+</table>
+</div>
+
+<div>
+    <H4>Artists</H4>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th></th>
+        </tr>
+
+        <th:block th:each="ticket: ${tickets}">
+            <tr>
+                <td th:text="${tickets.indexOf(ticket)}">
+                <td th:text="${ticket.name}">
+                <td th:text="${ticket.price}">
+                <td th:text="${ticket.startDate}">
+                <td th:text="${ticket.endDate}">
+
+                <td>
+                    <button type="button" class="action-button edit-button"></button>
+                    <button type="button" class="action-button delete-button"></button>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
+<div>
+    <H4>Stages</H4>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Price</th>
+            <th>Start date</th>
+            <th>End date</th>
+            <th></th>
+        </tr>
+
+        <th:block th:each="ticket: ${tickets}">
+            <tr>
+                <td th:text="${tickets.indexOf(ticket)}">
+                <td th:text="${ticket.name}">
+                <td th:text="${ticket.price}">
+                <td th:text="${ticket.startDate}">
+                <td th:text="${ticket.endDate}">
+
+                <td>
+                    <button type="button" class="action-button edit-button"></button>
+                    <button type="button" class="action-button delete-button"></button>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</div>
+
+<div class="ticket">
+    <div class="form-wrapper">
+        <form  action = "#" th:action="@{/admin/ticketDU/update}"  method="post">
+            <h2>Update </h2>
+            <label for="tickets">Pick ticket</label>
+            <select id="tickets" name="ticketSelected">
+                <option th:each="ticket:${tickets}" th:value="${tickets.indexOf(ticket)}" th:text="${tickets.indexOf(ticket)}"></option>
+            </select>
+            <label for="price">Price</label>
+            <input type="number" th:name="price" id="price" name="price">
+            <label for="name">Name</label>
+            <input type="text" th:name="name" id="name" name="name">
+            <label for="startDate">Start Date</label>
+            <input type="date" th:name="startDate" id="startDate" name="startDate">
+            <label for="stopDate">Stop Date</label>
+            <input type="date" th:name="stopDate" id="stopDate" name="stopDate">
+            <button type="submit" name="action" class="custom-button" value="update">Update</button>
+        </form>
+    </div>
+
+    <div class="form-wrapper">
+        <form action = "#" th:action="@{/admin/ticketDU/delete}" method="post" >
+            <h2>Delete </h2>
+            <label for="ticketSelected">Pick the id of the ticket you wish to delete </label>
+            <select id="ticketSelected" name="ticketSelected">
+                <option th:each="ticket:${tickets}" th:value="${tickets.indexOf(ticket)}" th:text="${tickets.indexOf(ticket)}"></option>
+            </select>
+            <button name="action" type="submit" class="custom-button" value="delete">Delete</button>
+        </form>
+    </div>
+</div>
+</body>
+</html>

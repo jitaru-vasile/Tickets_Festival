@@ -1,21 +1,19 @@
 package ro.sd.a2.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.util.Set;
+import java.util.*;
 
 @Entity
 @Table
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UserProfile {
+public class UserProfile  {
 
     @Id
     private String id;
@@ -38,6 +36,8 @@ public class UserProfile {
     @Column
     private String password;
 
+
+
     @OneToOne
     @JoinColumn(name="address_id")
     private  Address address;
@@ -45,4 +45,32 @@ public class UserProfile {
     @OneToMany(mappedBy = "userProfileT", orphanRemoval = true)
     private Set<UserTransaction> userTransactions;
 
+    private String roles;
+
+    private String permissions;
+
+    private int active = 1;
+
+    public List<String> getRolesList(){
+        if(this.roles.length()>0){
+            return Arrays.asList(this.roles.split(","));
+        }else
+            return new ArrayList<>();
+    }
+    public List<String> getPermissionList(){
+        if(this.permissions.length()>0){
+            return Arrays.asList(this.roles.split(","));
+        }else
+            return new ArrayList<>();
+    }
+
+    @Override
+    public String toString() {
+        return "UserProfile{" +
+                "firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", birthDate=" + birthDate +
+                '}';
+    }
 }
