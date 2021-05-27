@@ -135,70 +135,23 @@
 <body>
 <div>
     <H4>Program</H4>
-<table>
-    <tr>
-        <th>Id</th>
-        <th>Artist</th>
-        <th>Stage</th>
-        <th>Start time</th>
-        <th>End time</th>
-        <th></th>
-    </tr>
-
-    <th:block th:each="performance: ${performances}">
-        <tr>
-            <td th:text="${performances.indexOf(performance)}">
-            <td th:text="${performance.artist.name}">
-            <td th:text="${performance.stage.name}">
-            <td th:text="${performance.start}">
-            <td th:text="${performance.end}">
-
-            <td>
-                <button type="button" class="action-button edit-button"></button>
-                <button type="button" class="action-button delete-button"></button>
-            </td>
-        </tr>
-    </th:block>
-</table>
-</div>
-
-<div>
-    <H4>Artists</H4>
     <table>
         <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>Artist</th>
+            <th>Stage</th>
+            <th>Start time</th>
+            <th>End time</th>
             <th></th>
         </tr>
 
-        <th:block th:each="artist: ${artists}">
+        <th:block th:each="performance: ${performances}">
             <tr>
-                <td th:text="${artists.indexOf(artist)}">
-                <td th:text="${artist.name}">
-                <td>
-                    <button type="button" class="action-button edit-button"></button>
-                    <button type="button" class="action-button delete-button"></button>
-                </td>
-            </tr>
-        </th:block>
-    </table>
-</div>
-
-<div>
-    <H4>Stages</H4>
-    <table>
-        <tr>
-            <th>Id</th>
-            <th>Name</th>
-            <th>Location</th>
-            <th></th>
-        </tr>
-
-        <th:block th:each="stage: ${stages}">
-            <tr>
-                <td th:text="${stages.indexOf(stage)}">
-                <td th:text="${stage.name}">
-                <td th:text="${stage.location}">
+                <td th:text="${performances.indexOf(performance)}">
+                <td th:text="${performance.artist.name}">
+                <td th:text="${performance.stage.name}">
+                <td th:text="${performance.start}">
+                <td th:text="${performance.end}">
 
                 <td>
                     <button type="button" class="action-button edit-button"></button>
@@ -209,37 +162,5 @@
     </table>
 </div>
 
-<div class="ticket">
-    <div class="form-wrapper">
-        <form  action = "#" th:action="@{/admin/editSchedule/add}"  method="post">
-            <h2>Add performance </h2>
-            <label for="artists">Pick the id of the artist</label>
-            <select id="artists" name="artistSelected">
-                <option th:each="artist:${artists}" th:value="${artists.indexOf(artist)}" th:text="${artists.indexOf(artist)}"></option>
-            </select>
-            <label for="stage">Pick the id of the stage</label>
-            <select id="stage" name="stageSelected">
-                <option th:each="stage:${stages}" th:value="${stages.indexOf(stage)}" th:text="${stages.indexOf(stage)}"></option>
-            </select>
-            <label for="start">Start performance</label>
-            <input type="datetime-local" th:name="start" id="start" name="start">
-            <label for="end">End performance</label>
-            <input type="datetime-local" th:name="end" id="end" name="end">
-
-            <button type="submit" name="action" class="custom-button" value="add">Update</button>
-        </form>
-    </div>
-
-    <div class="form-wrapper">
-        <form action = "#" th:action="@{/admin/editScedule/delete}" method="post" >
-            <h2>Delete </h2>
-            <label for="ticketSelected">Pick the id of the performance you wish to delete </label>
-            <select id="ticketSelected" name="ticketSelected">
-                <option th:each="performance:${performances}" th:value="${performances.indexOf(performance)}" th:text="${performances.indexOf(performance)}"></option>
-            </select>
-            <button name="action" type="submit" class="custom-button" value="delete">Delete</button>
-        </form>
-    </div>
-</div>
 </body>
 </html>

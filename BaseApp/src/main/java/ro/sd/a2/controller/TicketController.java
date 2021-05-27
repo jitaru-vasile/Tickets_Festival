@@ -124,11 +124,11 @@ public class TicketController {
             }
             TicketDTO ticketDTO = ticketService.getTicketById(ticketId);
             transactionService.saveTransaction(loggedInUser, ticketDTO);
-            Context context = new Context(new GenerateTicketPDF());
+            /*Context context = new Context(new GenerateTicketPDF());
             context.executeStrategy(ticketDTO,loggedInUser);
             Context context1 = new Context(new GenerateTicketText());
             context1.executeStrategy(ticketDTO,loggedInUser);
-           /* PayloadDTO payloadDTO = PayloadDTO.builder().price(ticketDTO.getPrice())
+            PayloadDTO payloadDTO = PayloadDTO.builder().price(ticketDTO.getPrice())
                     .ticketName(ticketDTO.getName())
                     .ticketPath(loggedInUser.getFirstName()+loggedInUser.getLastName()+"ticket")
                     .userEmail(loggedInUser.getEmail())

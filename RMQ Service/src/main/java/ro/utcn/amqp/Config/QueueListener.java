@@ -64,10 +64,10 @@ public class QueueListener {
            messageBodyPart.setContent(contend,"text/html");
            // Send mail
            MimeBodyPart attachmentPart = new MimeBodyPart();
-           attachmentPart.attachFile(new File("D:\\Facultate\\Anul 3\\Semestrul 2\\PS\\Assigment 3\\2021-ps-a3-jitaru-vasile\\A3-BaseApp\\"+in.getTicketPath()+".pdf"));
+           //attachmentPart.attachFile(new File("D:\\Facultate\\Anul 3\\Semestrul 2\\PS\\Assigment 3\\2021-ps-a3-jitaru-vasile\\A3-BaseApp\\"+in.getTicketPath()+".pdf"));
 
            MimeBodyPart attachmentPart1 = new MimeBodyPart();
-           attachmentPart1.attachFile(new File("D:\\Facultate\\Anul 3\\Semestrul 2\\PS\\Assigment 3\\2021-ps-a3-jitaru-vasile\\A3-BaseApp\\"+in.getTicketPath()+".txt"));
+          // attachmentPart1.attachFile(new File("D:\\Facultate\\Anul 3\\Semestrul 2\\PS\\Assigment 3\\2021-ps-a3-jitaru-vasile\\A3-BaseApp\\"+in.getTicketPath()+".txt"));
 
            Multipart multipart = new MimeMultipart();
 

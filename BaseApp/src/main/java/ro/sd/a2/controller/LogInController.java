@@ -24,13 +24,6 @@ public class LogInController {
         return "logIn";
     }
 
-    @GetMapping("/index")
-    public String indexForm() {
-
-
-        return "index";
-    }
-
     @GetMapping("/forbidden")
     public String forbiddenForm() {
 

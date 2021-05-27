@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.UUID;
 
 @Controller
-@RequestMapping("admin")
+
 public class ArtistController {
     private static final Logger log = LoggerFactory.getLogger(ArtistController.class);
 
@@ -28,13 +28,22 @@ public class ArtistController {
     @Autowired
     private ArtistService artistService;
 
-    @GetMapping("artists")
+    @GetMapping("admin/artists")
     public ModelAndView loadArtistPage(){
         ModelAndView modelAndView = new ModelAndView("admin/ArtistsAdmin");
         artists = artistService.getAllArtists();
         ArtistDTO artistDTO = new ArtistDTO();
         modelAndView.addObject("artists", artists);
         modelAndView.addObject("artistDTO", artistDTO);
+        return modelAndView;
+    }
+
+    @GetMapping("artists")
+    public ModelAndView loadArtistPageIndex(){
+        ModelAndView modelAndView = new ModelAndView("artists");
+        artists = artistService.getAllArtists();
+        ArtistDTO artistDTO = new ArtistDTO();
+        modelAndView.addObject("artists", artists);
         return modelAndView;
     }
 

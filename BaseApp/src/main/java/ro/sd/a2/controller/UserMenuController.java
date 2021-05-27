@@ -1,8 +1,6 @@
 package ro.sd.a2.controller;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -10,13 +8,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.view.RedirectView;
-import ro.sd.a2.service.UserService;
+
 
 @Controller
 @RequestMapping("user")
 public class UserMenuController {
     private static final Logger log = LoggerFactory.getLogger(UserMenuController.class);
-    private String loggedInUserID;
 
 
 
@@ -27,7 +24,7 @@ public class UserMenuController {
             String currentUserName = authentication.getName();
             System.err.println(currentUserName);
         }
-        loggedInUserID = "bla";
+
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("user/index");
 

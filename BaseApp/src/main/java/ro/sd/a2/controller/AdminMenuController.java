@@ -122,4 +122,17 @@ public class AdminMenuController {
         return redirectView;
     }
 
+    @PostMapping(value = "index", params = "action=editSchedule")
+    public RedirectView seeSchedule(){
+        RedirectView redirectView = new RedirectView();
+        try{
+            redirectView.setUrl("editSchedule");
+        }
+        catch (Exception e){
+            log.error(e.getMessage());
+            redirectView.setUrl("http://localhost:7799/app/admin/index");
+        }
+        return redirectView;
+    }
+
 }

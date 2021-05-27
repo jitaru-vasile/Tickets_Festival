@@ -66,12 +66,13 @@ public class SignInController {
     public RedirectView signIn(@ModelAttribute("userDto") UserDTO userDTO, @ModelAttribute("addressDto") AddressDto addressDto){
         RedirectView redirectView = new RedirectView();
         try{
-        //restTemplate.postForObject("http://localhost:7798/email", userDTO, UserDTO.class);
+
         userDTO.setId(UUID.randomUUID().toString());
         addressDto.setId(UUID.randomUUID().toString());
         userDTO.setAddressDto(addressDto);
         addressService.saveAddress(addressDto);
         userService.saveUser(userDTO);
+        //restTemplate.postForObject("http://localhost:7798/email", userDTO, UserDTO.class);
         redirectView.setUrl("http://localhost:7799/app/logIn");
         }
         catch (Exception e){
