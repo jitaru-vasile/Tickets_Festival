@@ -22,6 +22,11 @@ public class IndexController {
         return "index";
     }
 
+    @GetMapping("/map")
+    public String mapForm() {
+        return "Map";
+    }
+
     @PostMapping(value = "/index", params = "action=signIn")
     public RedirectView signIn(){
         RedirectView redirectView = new RedirectView();
